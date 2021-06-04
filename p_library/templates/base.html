@@ -9,11 +9,14 @@
 <br>
 {% if user.is_authenticated %}
     <a href="{% url 'account_logout' %}">Выход</a> <br>
-    Привет, <span>{{ user.username }}</span>    <br>
-    Я знаю твой профиль на <a href="{{ github_url }}">github</a>!
+    Привет, <span>{{ username }}</span>    <br>
+    {% if github_url %}
+        Я знаю твой профиль на <a href="{{ github_url }}">github</a>!
+    {% endif %}
+    <a href="{% url 'account_email' %}">Поменять email</a> <span>{{ extra_data }}</span><br>
 {% else %}
     <a href="{% url 'account_login' %}">Авторизация</a>
-    <a href="{% url 'account_signup' %}" style="margin-left: 2%;">Регистрация</a>
+    <a href="{% url 'register' %}" style="margin-left: 2%;">Регистрация</a>
 {% endif %}
 <table border="1">
     {% for book in books %}
