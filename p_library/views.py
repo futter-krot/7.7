@@ -24,9 +24,12 @@ def index(request):
     context={}
     context['books'] = books
     if request.user.is_authenticated:
-        context['username'] = request.user.username
-        context['github_url'] = SocialAccount.objects.get(provider='github', user=request.user).extra_data['html_url']
-        context['extra_data'] = SocialAccount.objects.filter(user=request.user, provider='github')
+        try:
+            context['username'] = request.user.username
+            context['github_url'] = SocialAccount.objects.get(provider='github', user=request.user).extra_data['html_url']
+            context['extra_data'] = SocialAccount.objects.filter(user=request.user, provider='github')
+        except:
+            pass
     return render(request, 'base.html', context)
 class RegisterView(FormView):  
   
