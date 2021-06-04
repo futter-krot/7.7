@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <p class="h1">Издательства</p>
+    <ul class="list-unstyled">
+        {% for redaction in redactions %}
+        <li>
+            <strong>{{ redaction.name }}.</strong> Всего книг: {{ redaction.book__count }}
+            <ul>
+                {% if redaction.book__count > 0 %}
+                    {% for book in books %}
+                        {% if book.redaction == redaction %}
+                            <li class= "redaction_book_item">{{book.title}}</li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <small>Sorry, no books in this list.</small>
+                {% endif %}
+            </ul>
+        </li>
+        {% empty %}
+        Sorry, no redactions in this list.
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
